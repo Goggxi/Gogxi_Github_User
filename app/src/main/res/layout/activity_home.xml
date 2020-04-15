@@ -11,13 +11,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-<!--    <com.ismaeldivita.chipnavigation.ChipNavigationBar-->
-<!--        android:id="@+id/bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@drawable/bg_chip_navigation"-->
-<!--        android:elevation="16dp"-->
-<!--        app:cnb_menuResource="@menu/menu_chip" />-->
-
 </RelativeLayout>

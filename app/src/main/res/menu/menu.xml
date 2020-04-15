@@ -5,14 +5,12 @@
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/ic_favorite"
-        android:iconTint="@android:color/white"
         android:title="@string/setting"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
-        android:iconTint="@android:color/white"
         android:title="@string/setting"
         app:showAsAction="ifRoom"/>
 
