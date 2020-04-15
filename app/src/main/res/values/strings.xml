@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Github Users</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="github_image">Github Image</string>
+
+    <string name="no_result">No Result</string>
+    <string name="setting">setting</string>
+</resources>
