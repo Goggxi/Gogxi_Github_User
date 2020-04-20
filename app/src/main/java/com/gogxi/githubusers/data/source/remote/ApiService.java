@@ -15,7 +15,7 @@ public interface ApiService {
 
 
     @GET("/search/users")
-    @Headers("Authentication: token <yourtokrn>")
+    @Headers("Authentication: token <4bbba7ffce1b5819d4f45d92def0799a725f9301>")
     Call<UsersResponse> getUser(@Query("q") String username);
 
     @GET("/users/{username}")
