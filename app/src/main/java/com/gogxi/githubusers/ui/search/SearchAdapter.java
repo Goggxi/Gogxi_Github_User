@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,11 +60,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         void bind(Users users) {
             tvUsername.setText(users.getLogin());
-//            itemView.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {
+                Toast.makeText(v.getContext(), "You clicked " + users.getLogin(), Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(itemView.getContext(), DetailCourseActivity.class);
 //                intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.getCourseId());
 //                itemView.getContext().startActivity(intent);
-//            });
+            });
             Glide.with(itemView.getContext())
                     .load(users.getAvatarUrl())
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))

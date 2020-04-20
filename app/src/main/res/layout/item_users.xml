@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:gravity="center"
-    android:elevation="2dp">
-    
+    android:layout_height="wrap_content">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgvw_avatar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_vertical"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtvw_username"
-        android:textStyle="bold"
-        tools:text="USERNAME"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgvw_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="USERNAME" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

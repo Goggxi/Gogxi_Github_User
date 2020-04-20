@@ -1,6 +1,5 @@
 package com.gogxi.githubusers.ui.search;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -21,7 +20,7 @@ public class SearchVM extends ViewModel {
     private ApiClient client;
     private MutableLiveData<List<Users>> mUsers = new MutableLiveData<>();
 
-    public void setResultUsers(String username, Context context){
+    public void setResultUsers(String username){
         if (this.client == null){
             client = new ApiClient();
         }

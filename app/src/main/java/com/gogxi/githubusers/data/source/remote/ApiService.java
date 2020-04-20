@@ -19,6 +19,7 @@ public interface ApiService {
     Call<UsersResponse> getUser(@Query("q") String username);
 
     @GET("/users/{username}")
+    @Headers("Authentication: token <4bbba7ffce1b5819d4f45d92def0799a725f9301>")
     Call<Users> getDetailUser(@Path("username") String username);
 
 //    @GET("/users/{username}/followers")
