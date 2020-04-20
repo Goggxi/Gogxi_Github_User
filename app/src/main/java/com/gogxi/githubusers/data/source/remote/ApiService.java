@@ -23,8 +23,8 @@ public interface ApiService {
     @Headers("Authentication: token <4bbba7ffce1b5819d4f45d92def0799a725f9301>")
     Call<UsersDetail> getDetailUser(@Path("username") String username);
 
-//    @GET("/users/{username}/followers")
-//    Call<List<Users>> getFollowersUser(@Path("username") String username);
+    @GET("/users/{username}/followers")
+    Call<List<Users>> getFollowersUser(@Path("username") String username);
 //
 //    @GET("/users/{username}/following")
 //    Call<List<Users>> getFollowingUser(@Path("username") String username);

@@ -12,4 +12,5 @@
     <string name="repositories">Repositories</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="detail">User Detail</string>
 </resources>

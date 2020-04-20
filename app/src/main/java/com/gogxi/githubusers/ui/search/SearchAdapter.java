@@ -24,7 +24,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     private List<Users> listUsers = new ArrayList<>();
 
-    void setUsers(List<Users> users){
+    public void setUsers(List<Users> users){
         if (listUsers == null) return;
         this.listUsers.clear();
         this.listUsers.addAll(users);

@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,8 +43,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        Users user = getIntent().getParcelableExtra(EXTRA_USER);
 
-        DetailPageAdapter detailPageAdapter = new DetailPageAdapter(this, getSupportFragmentManager());
+        DetailPageAdapter detailPageAdapter = new DetailPageAdapter(this, getSupportFragmentManager(), user);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(detailPageAdapter);
 
@@ -67,10 +69,23 @@ public class DetailActivity extends AppCompatActivity {
         mImageViewBlog = findViewById(R.id.imageViewBlog);
         mImageViewLocation = findViewById(R.id.imageViewLocation);
 
-        Users user = getIntent().getParcelableExtra(EXTRA_USER);
         if (user != null){
             getDetailUsers(user.getLogin());
         }
+
+        if (getSupportActionBar() != null ){
+            getSupportActionBar().setTitle(R.string.detail);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void getDetailUsers(String username){
