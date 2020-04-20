@@ -1,5 +1,6 @@
 package com.gogxi.githubusers.ui.search;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogxi.githubusers.R;
 import com.gogxi.githubusers.data.model.Users;
+import com.gogxi.githubusers.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +63,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         void bind(Users users) {
             tvUsername.setText(users.getLogin());
             itemView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), "You clicked " + users.getLogin(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(itemView.getContext(), DetailCourseActivity.class);
-//                intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.getCourseId());
-//                itemView.getContext().startActivity(intent);
+//                Toast.makeText(v.getContext(), "You clicked " + users.getLogin(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_USER, users);
+                itemView.getContext().startActivity(intent);
             });
             Glide.with(itemView.getContext())
                     .load(users.getAvatarUrl())

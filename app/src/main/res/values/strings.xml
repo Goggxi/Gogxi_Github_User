@@ -9,4 +9,7 @@
 
     <string name="no_result">No Result</string>
     <string name="setting">setting</string>
+    <string name="repositories">Repositories</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 </resources>

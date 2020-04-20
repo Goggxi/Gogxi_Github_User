@@ -1,6 +1,7 @@
 package com.gogxi.githubusers.data.source.remote;
 
 import com.gogxi.githubusers.data.model.Users;
+import com.gogxi.githubusers.data.model.UsersDetail;
 import com.gogxi.githubusers.data.model.UsersResponse;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ApiService {
 
     @GET("/users/{username}")
     @Headers("Authentication: token <4bbba7ffce1b5819d4f45d92def0799a725f9301>")
-    Call<Users> getDetailUser(@Path("username") String username);
+    Call<UsersDetail> getDetailUser(@Path("username") String username);
 
 //    @GET("/users/{username}/followers")
 //    Call<List<Users>> getFollowersUser(@Path("username") String username);
