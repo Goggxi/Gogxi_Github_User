@@ -5,7 +5,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     public static final String BASE_URL = " https://api.github.com";
-    public static final String TOKEN_GITHUB = "5527a894c083b2a23625c3070d0ef2bf9ec411ca";
 
     private static Retrofit retrofit = null;
 

@@ -15,6 +15,7 @@ public interface ApiService {
 
 
     @GET("/search/users")
+    @Headers("Authentication: token <yourtokrn>")
     Call<UsersResponse> getUser(@Query("q") String username);
 
     @GET("/users/{username}")
@@ -27,8 +28,9 @@ public interface ApiService {
 //    Call<List<Users>> getFollowingUser(@Path("username") String username);
 
 //    @GET("search/users?q={username}")
-//    @Headers("Authentication: token <5527a894c083b2a23625c3070d0ef2bf9ec411ca>")
 //    Call<UsersResponse> searchUser(@Path("username")String username);
+
+//    @Headers("Authentication: token <Personal Access Token>")
 
 //    @GET("search/users")
 //    Call<UsersResponse> searchUser(@Query("q") String query);

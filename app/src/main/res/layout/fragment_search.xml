@@ -7,14 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
-    <SearchView
-        android:id="@+id/sv_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ProgressBar
         android:id="@+id/progress_search"
         android:layout_width="match_parent"
@@ -29,11 +21,10 @@
         android:id="@+id/rv_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_user" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/no_result"

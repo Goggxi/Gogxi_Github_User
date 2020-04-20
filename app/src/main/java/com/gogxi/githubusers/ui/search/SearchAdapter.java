@@ -1,7 +1,5 @@
 package com.gogxi.githubusers.ui.search;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +20,12 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
     private List<Users> listUsers = new ArrayList<>();
-    private Context context;
 
-    public SearchAdapter(Context context) {
-        this.context = context;
-    }
-
-    public void setUsers(List<Users> users){
+    void setUsers(List<Users> users){
         if (listUsers == null) return;
         this.listUsers.clear();
         this.listUsers.addAll(users);
     }
-
 
     @NonNull
     @Override
@@ -53,9 +45,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return listUsers.size();
     }
 
-    
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvUsername;
         final ImageView imgAvatar;
 
