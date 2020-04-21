@@ -8,12 +8,11 @@ public class UsersResponse {
 	@SerializedName("items")
 	private List<Users> items;
 
-	public void setItems(List<Users> items){
+	public UsersResponse(List<Users> items) {
 		this.items = items;
 	}
 
 	public List<Users> getItems(){
 		return items;
 	}
-
 }

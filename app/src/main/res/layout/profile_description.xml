@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_person"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/txtvw_name_profile"
@@ -34,7 +35,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_company"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewName" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewName"
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/txtvw_company_profile"
@@ -53,7 +55,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_blog"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCompany" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCompany"
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/txtvw_blog_profile"
@@ -72,7 +75,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBlog" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBlog"
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/txtvw_location_profile"

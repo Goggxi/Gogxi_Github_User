@@ -1,5 +1,7 @@
 package com.gogxi.githubusers.ui.search;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -40,6 +44,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private LinearLayout mLinearLayout;
+    private SearchView searchView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -66,55 +71,80 @@ public class SearchFragment extends Fragment {
         Objects.requireNonNull(((HomeActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
         mLinearLayout.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
         inflater.inflate(R.menu.menu, menu);
+        implementSearch(menu);
+    }
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW| MenuItem.SHOW_AS_ACTION_IF_ROOM );
+    private void implementSearch(final Menu menu) {
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+        final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) searchMenuItem.getActionView();
+        if (searchManager != null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setIconifiedByDefault(false);
 
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener(){
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item){
+                    searchView.setQueryHint("Search User");
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            Log.i( "onQueryTextSubmit: ", query);
+                            if (query.isEmpty()){
+                                showLoading(true);
+                                mLinearLayout.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.GONE);
+                                return true;
+                            }
+                            mSearchVM.setResultUsers(query);
+                            showLoading(false);
+                            return true;
+                        }
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.i( "onQueryTextSubmit: ", query);
-                if (query.isEmpty()){
-                    showLoading(true);
-                    mLinearLayout.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            Log.i("onQueryTextChange: ", newText);
+                            if (newText.isEmpty()){
+                                showLoading(true);
+                                mLinearLayout.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.GONE);
+                                return true;
+                            }
+                            mSearchVM.setResultUsers(newText);
+                            showLoading(false);
+                            return true;
+                        }
+                    });
+                    new Handler().post(() -> {
+                        searchView.requestFocus();
+                        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            imm.showSoftInput(searchView.findFocus(), 0);
+                        }
+                    });
+//                    Toast.makeText(getActivity(), "Search Open", Toast.LENGTH_LONG).show();
                     return true;
                 }
-                mSearchVM.setResultUsers(query);
-                showLoading(false);
-                return true;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.i("onQueryTextChange: ", newText);
-                if (newText.isEmpty()){
-                    showLoading(true);
-                    mLinearLayout.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item){
+//                    Toast.makeText(getActivity(), "Search Close", Toast.LENGTH_LONG).show();
                     return true;
                 }
-                mSearchVM.setResultUsers(newText);
-                showLoading(false);
-                return true;
-            }
-        });
+            });
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_search:
-                return false;
             case R.id.favorite:
                 if (getFragmentManager() != null){
                     getFragmentManager()

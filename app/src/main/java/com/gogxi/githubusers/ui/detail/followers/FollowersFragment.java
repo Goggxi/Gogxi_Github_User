@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.gogxi.githubusers.R;
 import com.gogxi.githubusers.data.model.Users;
@@ -24,6 +26,8 @@ public class FollowersFragment extends Fragment {
     public static final String EXTRA_FOLLOWERS = "extra_followers";
     private SearchAdapter mSearchAdapter = new SearchAdapter();
     private RecyclerView mRecyclerViewFollowers;
+    private ProgressBar mProgressBarFollowers;
+    private LinearLayout mLinearLayoutFollowers;
     private String username;
 
     public FollowersFragment() {
@@ -41,12 +45,15 @@ public class FollowersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerViewFollowers = view.findViewById(R.id.rcvw_followers);
+        mProgressBarFollowers = view.findViewById(R.id.progress_followers);
+        mLinearLayoutFollowers = view.findViewById(R.id.no_result_followers);
 
         if (getArguments() != null){
             username = getArguments().getString(EXTRA_FOLLOWERS);
         }
 
-       getFollowers(username);
+        getFollowers(username);
+        showLoading(false);
     }
 
     private void getFollowers(String path){
@@ -63,13 +70,19 @@ public class FollowersFragment extends Fragment {
         if (users != null){
             mSearchAdapter.notifyDataSetChanged();
             mSearchAdapter.setUsers(users);
-//            showLoading(true);
-//            mLinearLayout.setVisibility(View.GONE);
-//            mRecyclerView.setVisibility(View.VISIBLE);
-//            if (mSearchAdapter.getItemCount() == 0){
-//                mLinearLayout.setVisibility(View.VISIBLE);
-//                mRecyclerView.setVisibility(View.GONE);
-//            }
+            showLoading(true);
+            if (mSearchAdapter.getItemCount() == 0){
+                mLinearLayoutFollowers.setVisibility(View.VISIBLE);
+                mRecyclerViewFollowers.setVisibility(View.GONE);
+            }
         }
     };
+
+    private void showLoading(boolean state) {
+        if (state){
+            mProgressBarFollowers.setVisibility(View.GONE);
+        } else {
+            mProgressBarFollowers.setVisibility(View.VISIBLE);
+        }
+    }
 }

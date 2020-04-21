@@ -25,7 +25,7 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
             R.string.following,
     };
 
-    public DetailPageAdapter(Context context, FragmentManager fm, Users users) {
+    DetailPageAdapter(Context context, FragmentManager fm, Users users) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         this.users = users;
@@ -44,6 +44,9 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new FollowingFragment();
+                Bundle bundleFollowing = new Bundle();
+                bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
+                fragment.setArguments(bundleFollowing);
                 break;
         }
         return Objects.requireNonNull(fragment);

@@ -10,4 +10,34 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>
 
+   <ProgressBar
+       android:id="@+id/progress_followers"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerInParent="true"
+       android:visibility="gone"/>
+
+   <LinearLayout
+       android:id="@+id/no_result_followers"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerInParent="true"
+       android:visibility="gone"
+       android:orientation="vertical"
+       tools:ignore="UseCompoundDrawables">
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="16dp"
+          android:src="@drawable/github_mark"
+          android:contentDescription="@string/not_found" />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:text="@string/not_found" />
+   </LinearLayout>
+
 </RelativeLayout>

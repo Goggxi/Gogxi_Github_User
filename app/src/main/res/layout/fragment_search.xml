@@ -43,13 +43,13 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:src="@drawable/github_mark"
-            android:contentDescription="@string/github_image" />
+            android:contentDescription="@string/not_found" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/no_result" />
+            android:text="@string/not_found" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
