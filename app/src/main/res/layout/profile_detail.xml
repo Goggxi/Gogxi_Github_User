@@ -19,12 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtvw_login_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/crclvw_avatar_profile"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,8 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/repositories" />
+                android:text="@string/repositories"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/followers" />
+                android:text="@string/followers"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,11 +108,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/following" />
+                android:text="@string/following"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_favorite"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:textColor="@android:color/white"
+        android:text="@string/add_to_favorite"
+        android:background="@drawable/bg_button_add_favorite"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/crclvw_avatar_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,6 +20,8 @@ import com.gogxi.githubusers.data.model.UsersDetail;
 import com.gogxi.githubusers.data.source.remote.ApiClient;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,9 +29,12 @@ import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_USER = "extra_user";
+    public static final String EXTRA_USER_FAVORITE = "extra_user_favorite";
     private ApiClient client;
     private CircleImageView mAvatarProfile;
-    private TextView mReposProfile,
+    private Button mButtonFavorite;
+    private TextView mLoginProfile,
+            mReposProfile,
             mFollowersProfile,
             mFollowingProfile,
             mNameProfile,
@@ -56,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
 //        Objects.requireNonNull(tabs.getTabAt(1)).setIcon(R.drawable.ic_tv_show);
 //        -----------------------------------------------------------------------------------------------------
         mAvatarProfile = findViewById(R.id.crclvw_avatar_profile);
+        mLoginProfile = findViewById(R.id.txtvw_login_profile);
         mReposProfile = findViewById(R.id.txtvw_repos_profile);
         mFollowersProfile = findViewById(R.id.txtvw_followers_profile);
         mFollowingProfile = findViewById(R.id.txtvw_following_profile);
@@ -63,6 +71,8 @@ public class DetailActivity extends AppCompatActivity {
         mCompanyProfile = findViewById(R.id.txtvw_company_profile);
         mBlogProfile = findViewById(R.id.txtvw_blog_profile);
         mLocationProfile = findViewById(R.id.txtvw_location_profile);
+        mButtonFavorite = findViewById(R.id.btn_favorite);
+
 
         mImageViewName = findViewById(R.id.imageViewName);
         mImageViewCompany = findViewById(R.id.imageViewCompany);
@@ -74,10 +84,14 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (getSupportActionBar() != null ){
-            getSupportActionBar().setTitle(R.string.detail);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        mButtonFavorite.setOnClickListener(v -> {
+            Toast.makeText(getApplicationContext(), "You clicked " + mLocationProfile.getText() , Toast.LENGTH_LONG).show();
+        });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -103,6 +117,7 @@ public class DetailActivity extends AppCompatActivity {
                             UsersDetail mUsersDetail = response.body();
                             try {
                                 if (mUsersDetail != null){
+                                    mLoginProfile.setText(mUsersDetail.getLogin());
                                     mReposProfile.setText(String.valueOf(mUsersDetail.getPublicRepos()));
                                     mFollowersProfile.setText(String.valueOf(mUsersDetail.getFollowers()));
                                     mFollowingProfile.setText(String.valueOf(mUsersDetail.getFollowing()));
@@ -135,7 +150,8 @@ public class DetailActivity extends AppCompatActivity {
                             } catch (Exception e){
                                 e.printStackTrace();
                             }
-//                            Toast.makeText(getApplicationContext(), "You clicked " + mUsersDetail.getCompany(), Toast.LENGTH_SHORT).show();
+                            Objects.requireNonNull(getSupportActionBar()).setTitle(mLoginProfile.getText());
+//                            Toast.makeText(getApplicationContext(), "You clicked " + mLoginProfile.getText(), Toast.LENGTH_LONG).show();
                         }
 
                         @Override

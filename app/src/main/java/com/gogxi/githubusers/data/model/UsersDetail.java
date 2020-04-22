@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class UsersDetail{
 
+	@SerializedName("login")
+	private String login;
+
 	@SerializedName("blog")
 	private String blog;
 
@@ -31,7 +34,11 @@ public class UsersDetail{
 	@SerializedName("location")
 	private String location;
 
-	public UsersDetail(String blog, String company, int publicRepos, int followers, String avatarUrl, int following, String name, String location) {
+	public UsersDetail(){
+	}
+
+	public UsersDetail(String login, String blog, String company, int publicRepos, int followers, String avatarUrl, int following, String name, String location) {
+		this.login = login;
 		this.blog = blog;
 		this.company = company;
 		this.publicRepos = publicRepos;
@@ -40,6 +47,10 @@ public class UsersDetail{
 		this.following = following;
 		this.name = name;
 		this.location = location;
+	}
+
+	public String getLogin() {
+		return login;
 	}
 
 	public String getBlog(){

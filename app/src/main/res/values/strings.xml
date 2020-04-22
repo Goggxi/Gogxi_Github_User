@@ -9,6 +9,9 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
     <string name="not_found">Not Found</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="delete_to_favorite">Delete to Favorite</string>
+
 
     <!--    No Translate-->
     <string translatable="false" name="image">image</string>
