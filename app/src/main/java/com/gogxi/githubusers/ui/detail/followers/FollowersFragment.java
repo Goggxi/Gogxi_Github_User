@@ -60,7 +60,7 @@ public class FollowersFragment extends Fragment {
         FollowersVM mFollowersVM = new ViewModelProvider(this).get(FollowersVM.class);
 //        mSearchVM.setResultUsers(getString(R.string.language));
         mFollowersVM.setFollowersUsers(path);
-        mFollowersVM.getFollowersUsers().observe(this,getUser);
+        mFollowersVM.getFollowersUsers().observe(getViewLifecycleOwner(),getUser);
         mRecyclerViewFollowers.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerViewFollowers.setHasFixedSize(true);
         mRecyclerViewFollowers.setAdapter(mSearchAdapter);

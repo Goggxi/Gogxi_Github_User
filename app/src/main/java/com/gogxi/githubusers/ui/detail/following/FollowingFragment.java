@@ -61,7 +61,7 @@ public class FollowingFragment extends Fragment {
         FollowingVM mFollowingVM = new ViewModelProvider(this).get(FollowingVM.class);
 //        mSearchVM.setResultUsers(getString(R.string.language));
         mFollowingVM.setFollowingUsers(path);
-        mFollowingVM.getFollowingUsers().observe(this,getUser);
+        mFollowingVM.getFollowingUsers().observe(getViewLifecycleOwner(),getUser);
         mRecyclerViewFollowing.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerViewFollowing.setHasFixedSize(true);
         mRecyclerViewFollowing.setAdapter(mSearchAdapter);

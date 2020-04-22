@@ -165,7 +165,7 @@ public class SearchFragment extends Fragment {
     private void getResultSearch(){
         mSearchVM = new ViewModelProvider(this).get(SearchVM.class);
 //        mSearchVM.setResultUsers(getString(R.string.language));
-        mSearchVM.getResultUsers().observe(this,getUser);
+        mSearchVM.getResultUsers().observe(getViewLifecycleOwner(),getUser);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mSearchAdapter);

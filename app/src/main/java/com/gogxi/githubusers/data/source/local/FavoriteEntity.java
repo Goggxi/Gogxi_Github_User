@@ -1,11 +1,14 @@
 package com.gogxi.githubusers.data.source.local;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favorite")
-public class FavoriteEntity {
+public class FavoriteEntity implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -38,11 +41,33 @@ public class FavoriteEntity {
     @ColumnInfo(name = "location")
     private String location;
 
-    @ColumnInfo(name = "avatar_url")
-    private String avatarUrl;
-
     public FavoriteEntity() {
     }
+
+    protected FavoriteEntity(Parcel in) {
+        id = in.readInt();
+        user_id = in.readInt();
+        login = in.readString();
+        publicRepos = in.readInt();
+        followers = in.readInt();
+        following = in.readInt();
+        name = in.readString();
+        company = in.readString();
+        blog = in.readString();
+        location = in.readString();
+    }
+
+    public static final Creator<FavoriteEntity> CREATOR = new Creator<FavoriteEntity>() {
+        @Override
+        public FavoriteEntity createFromParcel(Parcel in) {
+            return new FavoriteEntity(in);
+        }
+
+        @Override
+        public FavoriteEntity[] newArray(int size) {
+            return new FavoriteEntity[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -124,11 +149,22 @@ public class FavoriteEntity {
         this.location = location;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(user_id);
+        dest.writeString(login);
+        dest.writeInt(publicRepos);
+        dest.writeInt(followers);
+        dest.writeInt(following);
+        dest.writeString(name);
+        dest.writeString(company);
+        dest.writeString(blog);
+        dest.writeString(location);
     }
 }

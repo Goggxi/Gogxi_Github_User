@@ -38,15 +38,15 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 fragment = new FollowersFragment();
-                Bundle bundleFollowers = new Bundle();
-                bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
-                fragment.setArguments(bundleFollowers);
+//                Bundle bundleFollowers = new Bundle();
+//                bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
+//                fragment.setArguments(bundleFollowers);
                 break;
             case 1:
                 fragment = new FollowingFragment();
-                Bundle bundleFollowing = new Bundle();
-                bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
-                fragment.setArguments(bundleFollowing);
+//                Bundle bundleFollowing = new Bundle();
+//                bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
+//                fragment.setArguments(bundleFollowing);
                 break;
         }
         return Objects.requireNonNull(fragment);
