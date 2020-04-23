@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
     public static final int REQUEST_UPDATE = 200;
     public static final int RESULT_ADD = 101;
     public static final int RESULT_DELETE = 201;
+
+    private final int ALERT_DIALOG_DELETE = 20;
 
     private Users user;
     private FavoriteEntity mFavoriteEntity;
@@ -79,7 +82,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
 
         mDetailVM = obtainViewModel(DetailActivity.this);
 
-        DetailPageAdapter detailPageAdapter = new DetailPageAdapter(this, getSupportFragmentManager(), user);
+        DetailPageAdapter detailPageAdapter = new DetailPageAdapter(this, getSupportFragmentManager(), user, mFavoriteEntity);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(detailPageAdapter);
 
@@ -286,10 +289,10 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
 
             mDetailVM.insert(mFavoriteEntity);
             setResult(RESULT_ADD, intent);
-            Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
 
             mButtonDeleteFavorite.setVisibility(View.VISIBLE);
             mButtonAddFavorite.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -314,15 +317,41 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
                 break;
             case R.id.btn_delete_favorite:
                 if (isDelete){
-                    deleteDB();
+                    showAlertDialog(ALERT_DIALOG_DELETE);
                 } else {
-                    final String login = user.getLogin();
-                    mDetailVM.deleteByLogin(login);
-                    Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
-                    mButtonDeleteFavorite.setVisibility(View.VISIBLE);
-                    mButtonAddFavorite.setVisibility(View.GONE);
+                    int ALERT_DIALOG_DELETE_API = 30;
+                    showAlertDialog(ALERT_DIALOG_DELETE_API);
                 }
                 break;
         }
+    }
+
+    private void showAlertDialog(int type) {
+        final boolean isDialogDelete = type == ALERT_DIALOG_DELETE;
+        String dialogTitle, dialogMessage;
+
+        dialogTitle = getString(R.string.message_delete);
+        dialogMessage = getString(R.string.delete_to_favorite);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle(dialogTitle);
+        alertDialogBuilder
+                .setMessage(dialogMessage)
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
+                    if (isDialogDelete) {
+                        deleteDB();
+                    } else {
+                        final String login = user.getLogin();
+                        mDetailVM.deleteByLogin(login);
+                        mButtonDeleteFavorite.setVisibility(View.VISIBLE);
+                        mButtonAddFavorite.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), (dialog, id) -> dialog.cancel());
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

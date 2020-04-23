@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.gogxi.githubusers.R;
 import com.gogxi.githubusers.data.model.Users;
+import com.gogxi.githubusers.data.source.local.FavoriteEntity;
 import com.gogxi.githubusers.ui.detail.followers.FollowersFragment;
 import com.gogxi.githubusers.ui.detail.following.FollowingFragment;
 
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 public class DetailPageAdapter extends FragmentPagerAdapter {
     private Users users;
+    private FavoriteEntity favoriteEntity;
     private final Context mContext;
 
     private final int[] TAB_TITLES = new int[]{
@@ -25,10 +27,11 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
             R.string.following,
     };
 
-    DetailPageAdapter(Context context, FragmentManager fm, Users users) {
+    DetailPageAdapter(Context context, FragmentManager fm, Users users, FavoriteEntity favoriteEntity) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         this.users = users;
+        this.favoriteEntity = favoriteEntity;
     }
 
     @NonNull
@@ -38,15 +41,27 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 fragment = new FollowersFragment();
-//                Bundle bundleFollowers = new Bundle();
-//                bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
-//                fragment.setArguments(bundleFollowers);
+                Bundle bundleFollowers = new Bundle();
+                if (users == null && favoriteEntity != null){
+                    bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS_LOCAL, favoriteEntity.getLogin());
+                } else {
+                    if(users != null){
+                        bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
+                    }
+                }
+                fragment.setArguments(bundleFollowers);
                 break;
             case 1:
                 fragment = new FollowingFragment();
-//                Bundle bundleFollowing = new Bundle();
-//                bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
-//                fragment.setArguments(bundleFollowing);
+                Bundle bundleFollowing = new Bundle();
+                if (users == null && favoriteEntity != null){
+                    bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING_LOCAL, favoriteEntity.getLogin());
+                } else {
+                    if(users != null){
+                        bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
+                    }
+                }
+                fragment.setArguments(bundleFollowing);
                 break;
         }
         return Objects.requireNonNull(fragment);

@@ -54,9 +54,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        FavoriteEntity mFavoriteEntity = listUsersFavorite.get(position);
-//        holder.bind(mFavoriteEntity);
-
         holder.tvUsername.setText(listUsersFavorite.get(position).getLogin());
         Glide.with(context)
                     .load(BASE_IMAGE_URL + listUsersFavorite.get(position).getUser_id())
@@ -76,8 +73,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return listUsersFavorite.size();
     }
 
-
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvUsername;
         final ImageView imgAvatar;
@@ -89,23 +84,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             imgAvatar = itemView.findViewById(R.id.imgvw_avatar);
             view = itemView;
         }
-
-//        void bind(FavoriteEntity mFavoriteEntity) {
-//            tvUsername.setText(mFavoriteEntity.getLogin());
-//            itemView.setOnClickListener(v -> {
-////                Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
-////                intent.putExtra(DetailActivity.EXTRA_USER, users);
-////                itemView.getContext().startActivity(intent);
-//                Intent intent = new Intent(activity, DetailActivity.class);
-//                intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-//                intent.putExtra(DetailActivity.EXTRA_USER_FAVORITE, mFavoriteEntity);
-//                activity.startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
-//            });
-//            Glide.with(itemView.getContext())
-//                    .load(BASE_IMAGE_URL + mFavoriteEntity.getUser_id())
-//                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-//                    .into(imgAvatar);
-////          }
-//        }
     }
 }

@@ -10,8 +10,10 @@
     <string name="following">Following</string>
     <string name="not_found">Not Found</string>
     <string name="add_to_favorite">Add to Favorite</string>
-    <string name="delete_to_favorite">Delete to Favorite</string>
-
+    <string name="delete_to_favorite">Delete From Favorite</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="message_delete">Are you sure you want to delete this item?</string>
 
     <!--    No Translate-->
     <string name="image" translatable="false">image</string>

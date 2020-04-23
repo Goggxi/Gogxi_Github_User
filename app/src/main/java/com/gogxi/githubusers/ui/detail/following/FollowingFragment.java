@@ -24,6 +24,7 @@ import java.util.List;
 
 public class FollowingFragment extends Fragment {
     public static final String EXTRA_FOLLOWING = "extra_following";
+    public static final String EXTRA_FOLLOWING_LOCAL = "extra_following_local";
     private SearchAdapter mSearchAdapter = new SearchAdapter();
     private RecyclerView mRecyclerViewFollowing;
     private ProgressBar mProgressBarFollowing;
@@ -49,8 +50,10 @@ public class FollowingFragment extends Fragment {
         mProgressBarFollowing = view.findViewById(R.id.progress_following);
         mLinearLayoutFollowing = view.findViewById(R.id.no_result_following);
 
-        if (getArguments() != null){
-            username = getArguments().getString(EXTRA_FOLLOWING);
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING);
+            username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING_LOCAL);
         }
 
         getFollowing(username);
