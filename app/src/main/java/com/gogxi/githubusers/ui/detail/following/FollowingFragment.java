@@ -52,8 +52,11 @@ public class FollowingFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null){
-            username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING);
-            username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING_LOCAL);
+            if (arguments.getString(FollowingFragment.EXTRA_FOLLOWING) != null){
+                username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING);
+            } else {
+                username = arguments.getString(FollowingFragment.EXTRA_FOLLOWING_LOCAL);
+            }
         }
 
         getFollowing(username);

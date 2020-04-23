@@ -2,7 +2,7 @@ package com.gogxi.githubusers.ui.detail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
@@ -183,8 +183,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
     @NonNull
     private static DetailVM obtainViewModel(AppCompatActivity activity) {
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
-
-        return ViewModelProviders.of(activity, factory).get(DetailVM.class);
+        return new ViewModelProvider(activity, factory).get(DetailVM.class);
     }
 
     @Override

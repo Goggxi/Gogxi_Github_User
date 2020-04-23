@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +49,7 @@ public class FavoriteFragment extends Fragment {
         FavoriteVM mFavoriteVM = obtainViewModel((AppCompatActivity) Objects.requireNonNull(getActivity()));
         mFavoriteVM.getAllFavorite().observe(getViewLifecycleOwner(), favoriteObserver);
 
+
         setHasOptionsMenu(true);
         Objects.requireNonNull(((HomeActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.favorite);
         Objects.requireNonNull(((HomeActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -80,8 +81,7 @@ public class FavoriteFragment extends Fragment {
     @NonNull
     private static FavoriteVM obtainViewModel(AppCompatActivity activity) {
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
-
-        return ViewModelProviders.of(activity, factory).get(FavoriteVM.class);
+        return new ViewModelProvider(activity, factory).get(FavoriteVM.class);
     }
 
     private void showLoading(boolean state) {

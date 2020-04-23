@@ -51,8 +51,11 @@ public class FollowersFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null){
-            username = arguments.getString(FollowersFragment.EXTRA_FOLLOWERS);
-            username = arguments.getString(FollowersFragment.EXTRA_FOLLOWERS_LOCAL);
+            if (arguments.getString(FollowersFragment.EXTRA_FOLLOWERS) != null){
+                username = arguments.getString(FollowersFragment.EXTRA_FOLLOWERS);
+            } else {
+                username = arguments.getString(FollowersFragment.EXTRA_FOLLOWERS_LOCAL);
+            }
         }
 
         getFollowers(username);

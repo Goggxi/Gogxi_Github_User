@@ -42,24 +42,20 @@ public class DetailPageAdapter extends FragmentPagerAdapter {
             case 0:
                 fragment = new FollowersFragment();
                 Bundle bundleFollowers = new Bundle();
-                if (users == null && favoriteEntity != null){
+                if (favoriteEntity != null){
                     bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS_LOCAL, favoriteEntity.getLogin());
-                } else {
-                    if(users != null){
-                        bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
-                    }
+                } else if (users != null){
+                    bundleFollowers.putString(FollowersFragment.EXTRA_FOLLOWERS, users.getLogin());
                 }
                 fragment.setArguments(bundleFollowers);
                 break;
             case 1:
                 fragment = new FollowingFragment();
                 Bundle bundleFollowing = new Bundle();
-                if (users == null && favoriteEntity != null){
+                if (favoriteEntity != null){
                     bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING_LOCAL, favoriteEntity.getLogin());
-                } else {
-                    if(users != null){
-                        bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
-                    }
+                } else if (users != null){
+                    bundleFollowing.putString(FollowingFragment.EXTRA_FOLLOWING, users.getLogin());
                 }
                 fragment.setArguments(bundleFollowing);
                 break;

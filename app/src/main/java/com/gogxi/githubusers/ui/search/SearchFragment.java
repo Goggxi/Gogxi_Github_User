@@ -2,7 +2,6 @@ package com.gogxi.githubusers.ui.search;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +29,7 @@ import com.gogxi.githubusers.R;
 import com.gogxi.githubusers.data.model.Users;
 import com.gogxi.githubusers.ui.favorite.FavoriteFragment;
 import com.gogxi.githubusers.ui.home.HomeActivity;
+import com.gogxi.githubusers.ui.setting.SettingFragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +48,6 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -146,17 +144,18 @@ public class SearchFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.favorite:
-                if (getFragmentManager() != null){
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, new FavoriteFragment(), FavoriteFragment.class.getSimpleName())
-                            .addToBackStack(null)
-                            .commit();
-                }
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new FavoriteFragment(), FavoriteFragment.class.getSimpleName())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.settings:
-                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                startActivity(mIntent);
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new SettingFragment(), SettingFragment.class.getSimpleName())
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
         return super.onOptionsItemSelected(item);

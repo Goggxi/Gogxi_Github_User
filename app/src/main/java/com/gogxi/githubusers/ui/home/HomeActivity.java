@@ -29,8 +29,8 @@ public class HomeActivity extends AppCompatActivity {
             int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
             if (backStackEntryCount > 0) {
                 getSupportFragmentManager().popBackStack();
+                return true;
             }
-            return true;
         }
         return false;
     }
