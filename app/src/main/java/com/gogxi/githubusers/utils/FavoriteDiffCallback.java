@@ -7,35 +7,35 @@ import com.gogxi.githubusers.data.source.local.FavoriteEntity;
 
 import java.util.List;
 
-public class NoteDiffCallback extends DiffUtil.Callback {
+public class FavoriteDiffCallback extends DiffUtil.Callback {
 
-    private final List<FavoriteEntity> mOldNoteList;
-    private final List<FavoriteEntity> mNewNoteList;
+    private final List<FavoriteEntity> mOldFavoriteList;
+    private final List<FavoriteEntity> mNewFavoriteList;
 
-    public NoteDiffCallback(List<FavoriteEntity> oldNoteList, List<FavoriteEntity> newNoteList) {
-        this.mOldNoteList = oldNoteList;
-        this.mNewNoteList = newNoteList;
+    public FavoriteDiffCallback(List<FavoriteEntity> oldFavoriteList, List<FavoriteEntity> newFavoriteList) {
+        this.mOldFavoriteList = oldFavoriteList;
+        this.mNewFavoriteList = newFavoriteList;
     }
 
     @Override
     public int getOldListSize() {
-        return mOldNoteList.size();
+        return mOldFavoriteList.size();
     }
 
     @Override
     public int getNewListSize() {
-        return mNewNoteList.size();
+        return mNewFavoriteList.size();
     }
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return mOldNoteList.get(oldItemPosition).getId() == mNewNoteList.get(newItemPosition).getId();
+        return mOldFavoriteList.get(oldItemPosition).getId() == mNewFavoriteList.get(newItemPosition).getId();
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        final FavoriteEntity oldEmployee = mOldNoteList.get(oldItemPosition);
-        final FavoriteEntity newEmployee = mNewNoteList.get(newItemPosition);
+        final FavoriteEntity oldEmployee = mOldFavoriteList.get(oldItemPosition);
+        final FavoriteEntity newEmployee = mNewFavoriteList.get(newItemPosition);
 
         return oldEmployee.getName().equals(newEmployee.getName());
     }

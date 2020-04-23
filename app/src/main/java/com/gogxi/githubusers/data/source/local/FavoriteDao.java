@@ -6,7 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +17,12 @@ public interface FavoriteDao {
     @Delete()
     void delete(FavoriteEntity mFavoriteEntity);
 
+    @Query("Delete FROM favorite where login LIKE  :login")
+    void deleteUserByLogin(String login);
+
     @Query("SELECT * from favorite ORDER BY id ASC")
     LiveData<List<FavoriteEntity>> getAllFavorite();
+
+    @Query("SELECT COUNT(*) FROM favorite WHERE user_id == :userId")
+    LiveData<Integer> getCount(int userId);
 }

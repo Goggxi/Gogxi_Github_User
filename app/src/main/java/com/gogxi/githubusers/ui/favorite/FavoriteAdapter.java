@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -19,7 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gogxi.githubusers.R;
 import com.gogxi.githubusers.data.source.local.FavoriteEntity;
 import com.gogxi.githubusers.ui.detail.DetailActivity;
-import com.gogxi.githubusers.utils.NoteDiffCallback;
+import com.gogxi.githubusers.utils.FavoriteDiffCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +31,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     private final ArrayList<FavoriteEntity> listUsersFavorite = new ArrayList<>();
 
-    FavoriteAdapter(Activity activity) {
+    FavoriteAdapter(Activity activity, Context context) {
         this.activity = activity;
+        this.context = context;
     }
 
     public void setFavorite(List<FavoriteEntity> mEntities){
-        final NoteDiffCallback diffCallback = new NoteDiffCallback(this.listUsersFavorite, mEntities);
+        final FavoriteDiffCallback diffCallback = new FavoriteDiffCallback(this.listUsersFavorite, mEntities);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         this.listUsersFavorite.clear();
@@ -56,13 +56,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        FavoriteEntity mFavoriteEntity = listUsersFavorite.get(position);
 //        holder.bind(mFavoriteEntity);
-        holder.tvUsername.setText(listUsersFavorite.get(position).getLogin());
-//        Glide.with(context)
-//                    .load(BASE_IMAGE_URL + listUsersFavorite.get(position).getUser_id())
-//                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-//                    .into(holder.imgAvatar);
 
-        holder.tvUsername.setOnClickListener(v -> {
+        holder.tvUsername.setText(listUsersFavorite.get(position).getLogin());
+        Glide.with(context)
+                    .load(BASE_IMAGE_URL + listUsersFavorite.get(position).getUser_id())
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                    .into(holder.imgAvatar);
+
+        holder.view.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_POSITION, holder.getAdapterPosition());
             intent.putExtra(DetailActivity.EXTRA_USER_FAVORITE, listUsersFavorite.get(holder.getAdapterPosition()));
@@ -80,26 +81,31 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvUsername;
         final ImageView imgAvatar;
+        final View view ;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.txtvw_username);
             imgAvatar = itemView.findViewById(R.id.imgvw_avatar);
+            view = itemView;
         }
 
 //        void bind(FavoriteEntity mFavoriteEntity) {
 //            tvUsername.setText(mFavoriteEntity.getLogin());
 //            itemView.setOnClickListener(v -> {
-//                Toast.makeText(v.getContext(), "You clicked " + mFavoriteEntity.getName(), Toast.LENGTH_SHORT).show();
 ////                Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
 ////                intent.putExtra(DetailActivity.EXTRA_USER, users);
-//
 ////                itemView.getContext().startActivity(intent);
+//                Intent intent = new Intent(activity, DetailActivity.class);
+//                intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
+//                intent.putExtra(DetailActivity.EXTRA_USER_FAVORITE, mFavoriteEntity);
+//                activity.startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
 //            });
 //            Glide.with(itemView.getContext())
 //                    .load(BASE_IMAGE_URL + mFavoriteEntity.getUser_id())
 //                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
 //                    .into(imgAvatar);
+////          }
 //        }
     }
 }

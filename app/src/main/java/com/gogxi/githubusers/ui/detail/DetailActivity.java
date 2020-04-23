@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity  implements View.OnClickListener{
     public static final String EXTRA_USER = "extra_user";
     public static final String EXTRA_USER_FAVORITE = "extra_user_favorite";
     private static final String BASE_IMAGE_URL = "https://avatars1.githubusercontent.com/u/" ;
@@ -42,17 +42,19 @@ public class DetailActivity extends AppCompatActivity {
     public static final int RESULT_ADD = 101;
     public static final int RESULT_DELETE = 201;
 
+    private Users user;
     private FavoriteEntity mFavoriteEntity;
     private DetailVM mDetailVM;
 
     private String actionBarTitle;
-    private String btnTitle;
     private int position;
     private boolean isDelete = false;
 
     private ApiClient client;
     private CircleImageView mAvatarProfile;
-    private Button mButtonFavorite;
+    private Button
+            mButtonAddFavorite,
+            mButtonDeleteFavorite;
     private TextView mIdUserProfile,
             mLoginProfile,
             mReposProfile,
@@ -72,9 +74,10 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        mDetailVM = obtainViewModel(DetailActivity.this);
+        user = getIntent().getParcelableExtra(EXTRA_USER);
+        mFavoriteEntity = getIntent().getParcelableExtra(EXTRA_USER_FAVORITE);
 
-        Users user = getIntent().getParcelableExtra(EXTRA_USER);
+        mDetailVM = obtainViewModel(DetailActivity.this);
 
         DetailPageAdapter detailPageAdapter = new DetailPageAdapter(this, getSupportFragmentManager(), user);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -83,9 +86,6 @@ public class DetailActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-//        Objects.requireNonNull(tabs.getTabAt(0)).setIcon(R.drawable.ic_movie);
-//        Objects.requireNonNull(tabs.getTabAt(1)).setIcon(R.drawable.ic_tv_show);
-//        -----------------------------------------------------------------------------------------------------
         mAvatarProfile = findViewById(R.id.crclvw_avatar_profile);
         mLoginProfile = findViewById(R.id.txtvw_login_profile);
         mIdUserProfile = findViewById(R.id.txtvw_id_user_profile);
@@ -96,7 +96,8 @@ public class DetailActivity extends AppCompatActivity {
         mCompanyProfile = findViewById(R.id.txtvw_company_profile);
         mBlogProfile = findViewById(R.id.txtvw_blog_profile);
         mLocationProfile = findViewById(R.id.txtvw_location_profile);
-        mButtonFavorite = findViewById(R.id.btn_favorite);
+        mButtonAddFavorite = findViewById(R.id.btn_add_favorite);
+        mButtonDeleteFavorite = findViewById(R.id.btn_delete_favorite);
 
         mImageViewName = findViewById(R.id.imageViewName);
         mImageViewCompany = findViewById(R.id.imageViewCompany);
@@ -105,9 +106,22 @@ public class DetailActivity extends AppCompatActivity {
 
         if (user != null){
             getDetailUsers(user.getLogin());
+            final int id = user.getId();
+            Log.d("GET DAO", "id user: " + id);
+            mDetailVM.getCount(id).observe(this, integer -> {
+                if (integer != 0){
+                    mButtonAddFavorite.setVisibility(View.GONE);
+                    mButtonDeleteFavorite.setVisibility(View.VISIBLE);
+                    Log.d("data DITAMBAH", "id user: " + integer);
+                }
+                else {
+                    mButtonAddFavorite.setVisibility(View.VISIBLE);
+                    mButtonDeleteFavorite.setVisibility(View.GONE);
+                    Log.d("data DIHAPUS", "id user: " + integer);
+                }
+            });
         }
 
-        mFavoriteEntity = getIntent().getParcelableExtra(EXTRA_USER_FAVORITE);
         if (mFavoriteEntity != null) {
             position = getIntent().getIntExtra(EXTRA_POSITION, 0);
             isDelete = true;
@@ -116,13 +130,25 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (isDelete) {
-            actionBarTitle = getString(R.string.detail);
-            btnTitle = getString(R.string.delete_to_favorite);
-            mButtonFavorite.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-            mButtonFavorite.setBackground(getResources().getDrawable(R.drawable.bg_button_delete_favorite));
-
             if (mFavoriteEntity != null) {
-                mIdUserProfile.setText(String.valueOf(mFavoriteEntity.getId()));
+                if (mFavoriteEntity.getName().equals("")){
+                    mImageViewName.setVisibility(View.GONE);
+                    mNameProfile.setVisibility(View.GONE);
+                }
+                if (mFavoriteEntity.getCompany().equals("")){
+                    mImageViewCompany.setVisibility(View.GONE);
+                    mCompanyProfile.setVisibility(View.GONE);
+                }
+                if (mFavoriteEntity.getBlog().equals("")){
+                    mImageViewBlog.setVisibility(View.GONE);
+                    mBlogProfile.setVisibility(View.GONE);
+                }
+                if (mFavoriteEntity.getLocation().equals("")){
+                    mImageViewLocation.setVisibility(View.GONE);
+                    mLocationProfile.setVisibility(View.GONE);
+                }
+
+                mIdUserProfile.setText(String.valueOf(mFavoriteEntity.getUser_id()));
                 mLoginProfile.setText(mFavoriteEntity.getLogin());
                 mReposProfile.setText(String.valueOf(mFavoriteEntity.getPublicRepos()));
                 mFollowersProfile.setText(String.valueOf(mFavoriteEntity.getFollowers()));
@@ -135,22 +161,20 @@ public class DetailActivity extends AppCompatActivity {
                         .load(BASE_IMAGE_URL + mFavoriteEntity.getUser_id())
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                         .into(mAvatarProfile);
-            }
-        } else {
-            actionBarTitle = getString(R.string.detail);
-            btnTitle = getString(R.string.add_to_favorite);
-        }
 
-        mButtonFavorite.setText(btnTitle);
-        mButtonFavorite.setOnClickListener(v -> {
-//            Toast.makeText(getApplicationContext(), "You clicked " + mLocationProfile.getText() , Toast.LENGTH_LONG).show();
-            actionDB();
-        });
+                mButtonAddFavorite.setVisibility(View.GONE);
+                mButtonDeleteFavorite.setVisibility(View.VISIBLE);
+                actionBarTitle = mLoginProfile.getText().toString();
+            }
+        }
 
         if (getSupportActionBar() != null ){
             getSupportActionBar().setTitle(actionBarTitle);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        mButtonAddFavorite.setOnClickListener(this);
+        mButtonDeleteFavorite.setOnClickListener(this);
     }
 
     @NonNull
@@ -233,7 +257,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private void actionDB(){
+    private void insertDB(){
         int id_user = Integer.parseInt(mIdUserProfile.getText().toString());
         int repo = Integer.parseInt(mReposProfile.getText().toString());
         int followers = Integer.parseInt(mFollowersProfile.getText().toString());
@@ -259,18 +283,46 @@ public class DetailActivity extends AppCompatActivity {
 
             Intent intent = new Intent();
             intent.putExtra(EXTRA_USER_FAVORITE, mFavoriteEntity);
-            intent.putExtra(EXTRA_POSITION, position);
 
-            if (isDelete) {
-                mDetailVM.delete(mFavoriteEntity);
-//                intent.putExtra(EXTRA_POSITION, position);
-                setResult(RESULT_DELETE, intent);
-                Toast.makeText(getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
-                mDetailVM.insert(mFavoriteEntity);
-                setResult(RESULT_ADD, intent);
-            }
+            mDetailVM.insert(mFavoriteEntity);
+            setResult(RESULT_ADD, intent);
+            Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+
+            mButtonDeleteFavorite.setVisibility(View.VISIBLE);
+            mButtonAddFavorite.setVisibility(View.GONE);
+        }
+    }
+
+    private void deleteDB(){
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_POSITION, position);
+        intent.putExtra(EXTRA_USER_FAVORITE, mFavoriteEntity);
+
+        mDetailVM.delete(mFavoriteEntity);
+        setResult(RESULT_DELETE, intent);
+
+        Toast.makeText(getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_LONG).show();
+        mButtonDeleteFavorite.setVisibility(View.GONE);
+        mButtonAddFavorite.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_add_favorite :
+                insertDB();
+                break;
+            case R.id.btn_delete_favorite:
+                if (isDelete){
+                    deleteDB();
+                } else {
+                    final String login = user.getLogin();
+                    mDetailVM.deleteByLogin(login);
+                    Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+                    mButtonDeleteFavorite.setVisibility(View.VISIBLE);
+                    mButtonAddFavorite.setVisibility(View.GONE);
+                }
+                break;
         }
     }
 }

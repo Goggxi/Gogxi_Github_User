@@ -24,6 +24,10 @@ public class FavoriteRepository {
         return mFavoriteDao.getAllFavorite();
     }
 
+    public LiveData<Integer> getCount(int userId) {
+        return mFavoriteDao.getCount(userId);
+    }
+
     public void insert(final FavoriteEntity mFavoriteEntity) {
         executorService.execute(() -> mFavoriteDao.insert(mFavoriteEntity));
     }
@@ -32,4 +36,7 @@ public class FavoriteRepository {
         executorService.execute(() -> mFavoriteDao.delete(mFavoriteEntity));
     }
 
+    public void deleteByLogin(String login){
+        executorService.execute(() -> mFavoriteDao.deleteUserByLogin(login));
+    }
 }

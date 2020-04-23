@@ -3,6 +3,7 @@ package com.gogxi.githubusers.ui.detail;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gogxi.githubusers.data.source.local.FavoriteEntity;
@@ -22,4 +23,10 @@ public class DetailVM extends ViewModel {
     public void delete(FavoriteEntity mFavoriteEntity) {
         mFavoriteRepository.delete(mFavoriteEntity);
     }
+
+    public void deleteByLogin(String login){
+        mFavoriteRepository.deleteByLogin(login);
+    }
+
+    public LiveData<Integer> getCount(int userId) { return mFavoriteRepository.getCount(userId); }
 }

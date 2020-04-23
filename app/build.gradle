@@ -39,6 +39,7 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circleImageVersion"
 
     //testing
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

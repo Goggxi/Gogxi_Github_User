@@ -125,12 +125,26 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_favorite"
+        android:id="@+id/btn_add_favorite"
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:textColor="@android:color/white"
         android:text="@string/add_to_favorite"
         android:background="@drawable/bg_button_add_favorite"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/crclvw_avatar_profile" />
+
+    <Button
+        android:id="@+id/btn_delete_favorite"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:visibility="gone"
+        android:textColor="@android:color/black"
+        android:text="@string/delete_to_favorite"
+        android:background="@drawable/bg_button_delete_favorite"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
