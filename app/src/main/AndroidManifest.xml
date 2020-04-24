@@ -18,9 +18,10 @@
         <provider
             android:name=".ui.provider.FavoriteContentProvider"
             android:authorities="com.gogxi.githubusers.ui.provider"
-            android:enabled="true"
             android:exported="true"
             android:permission="com.gogxi.githubusers.ui.provider.READ_WRITE"/>
+
+<!--        android:enabled="true"-->
 
         <receiver
             android:name=".ui.reminder.DailyReminderReceiver"

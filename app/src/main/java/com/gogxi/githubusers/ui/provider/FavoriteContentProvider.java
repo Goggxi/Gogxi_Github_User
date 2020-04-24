@@ -11,6 +11,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.gogxi.githubusers.data.source.local.FavoriteDao;
 import com.gogxi.githubusers.data.source.local.FavoriteEntity;
 import com.gogxi.githubusers.data.source.local.FavoriteRoomDatabase;
 
@@ -20,10 +21,8 @@ import java.util.Objects;
 public class FavoriteContentProvider extends ContentProvider {
     public static final String AUTHORITY = "com.gogxi.githubusers.ui.provider";
 
-    public static final Uri URI_CHEESE = Uri.parse(
-            "content://" + AUTHORITY + "/" + FavoriteEntity.TABLE_NAME);
-
-    private FavoriteRoomDatabase mFavoriteRoomDatabase;
+//    public static final Uri URI_CHEESE = Uri.parse(
+//            "content://" + AUTHORITY + "/" + FavoriteEntity.TABLE_NAME);
 
     private static final int CODE_DIR = 1;
     private static final int CODE_ITEM = 2;
@@ -37,7 +36,7 @@ public class FavoriteContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mFavoriteRoomDatabase = FavoriteRoomDatabase.getDatabase(getContext());
+        FavoriteRoomDatabase mFavoriteRoomDatabase = FavoriteRoomDatabase.getDatabase(getContext());
         return true;
     }
 
@@ -51,11 +50,11 @@ public class FavoriteContentProvider extends ContentProvider {
                 return null;
             }
 
-            mFavoriteRoomDatabase = (FavoriteRoomDatabase) FavoriteRoomDatabase.getDatabase(context).favoriteDao();
+            FavoriteDao mFavoriteDao = FavoriteRoomDatabase.getDatabase(context).favoriteDao();
             Cursor cursor = null;
 
             if (code == CODE_DIR) {
-                cursor = mFavoriteRoomDatabase.favoriteDao().selectAll();
+                cursor = mFavoriteDao.selectAll();
             }
             Objects.requireNonNull(cursor).setNotificationUri(context.getContentResolver(), uri);
             return cursor;
