@@ -47,7 +47,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(holder.imgAvatar);
             holder.view.setOnClickListener(v -> {
-                Toast.makeText(context,"Click : " + holder.txtUsername.getText() , Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Click : " + holder.txtUsername.getText() , Toast.LENGTH_SHORT).show();
             });
         }
     }
