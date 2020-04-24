@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvFavorite = findViewById(R.id.rv_favorite);
 
 
-        favoriteAdapter = new FavoriteAdapter(this);
+        favoriteAdapter = new FavoriteAdapter(this, this);
         rvFavorite.setHasFixedSize(true);
         rvFavorite.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         rvFavorite.setAdapter(favoriteAdapter);
