@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail">Detail User</string>
+    <string name="search">Cari</string>
+    <string name="favorite">Favorit</string>
+    <string name="setting">Pengaturan</string>
+    <string name="repositories">Repositori</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="language">Bahasa</string>
+    <string name="language_setting">Sesuaikan dengan bahasa Anda</string>
+
+    <string name="not_found">Tidak ditemukan</string>
+    <string name="add_to_favorite">Tambah ke Favorite</string>
+    <string name="delete_to_favorite">Hapus dari Favorit</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="message_delete">Anda yakin ingin menghapus item ini?</string>
+
+    <string name="reminder_daily">Pengingat Harian</string>
+    <string name="reminder_daily_message">Hai, sekarang jam 9 pagi, saatnya kembali ke aplikasi.</string>
+    <string name="reminder_daily_status_active">Pengingat Harian Diaktifkan</string>
+    <string name="reminder_daily_status_non_active">Pengingat Harian Dimatikan</string>
+    <string name="reminder_daily_setting">Pemberitahuan, kembali ke aplikasi pada jam 9 pagi.</string>
+</resources>

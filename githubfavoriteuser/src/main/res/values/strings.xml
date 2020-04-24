@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Github Favorite User</string>
+    <string name="not_found">not_found</string>
 </resources>

@@ -43,10 +43,10 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:src="@drawable/github_mark"
-            android:contentDescription="@string/not_found" />
+            android:contentDescription="@string/image" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/not_found" />

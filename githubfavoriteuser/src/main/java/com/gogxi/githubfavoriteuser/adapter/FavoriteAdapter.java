@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,13 +39,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FavoriteAdapter.ViewHolder holder, int position) {
         if (cursor.moveToPosition(position)){
             holder.txtUsername.setText(cursor.getString(cursor.getColumnIndexOrThrow("login")));
             Glide.with(context)
                     .load(BASE_IMAGE_URL + cursor.getInt(cursor.getColumnIndexOrThrow("user_id")))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(holder.imgAvatar);
+            holder.view.setOnClickListener(v -> {
+                Toast.makeText(context,"Click : " + holder.txtUsername.getText() , Toast.LENGTH_LONG).show();
+            });
         }
     }
 
@@ -53,14 +57,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return cursor == null ? 0 : cursor.getCount();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgAvatar;
-        TextView txtUsername;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        final ImageView imgAvatar;
+        final TextView txtUsername;
+        final View view;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgvw_avatar);
             txtUsername = itemView.findViewById(R.id.txtvw_username);
+            view = itemView;
         }
 
     }

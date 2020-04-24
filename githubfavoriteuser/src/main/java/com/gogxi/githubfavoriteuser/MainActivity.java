@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.gogxi.githubfavoriteuser.adapter.FavoriteAdapter;
 
@@ -20,14 +22,16 @@ public class MainActivity extends AppCompatActivity {
     public static final Uri URI_USER = Uri.parse("content://" + AUTHORITY + "/" + "favorite");
     private static final int LOADER = 1;
     private FavoriteAdapter favoriteAdapter;
+    private RecyclerView rvFavorite;
+    private LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rvFavorite = findViewById(R.id.rv_favorite);
-
+        rvFavorite = findViewById(R.id.rv_favorite);
+        mLinearLayout = findViewById(R.id.no_result_favorite);
 
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavorite.setHasFixedSize(true);
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoaderManager.getInstance(this).initLoader(LOADER,null,mLoaderCallbacks);
 //        getSupportLoaderManager().initLoader(LOADER,null, mLoaderCallbacks);
+
     }
 
     private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks =
@@ -61,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
                     if (loader.getId() == LOADER) {
                         favoriteAdapter.refill(data);
+                        if (favoriteAdapter.getItemCount() == 0) {
+                            mLinearLayout.setVisibility(View.VISIBLE);
+                            rvFavorite.setVisibility(View.GONE);
+                        }
                     }
                 }
 

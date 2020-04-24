@@ -2,7 +2,6 @@ package com.gogxi.githubusers.data.source.local;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.BaseColumns;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,11 +12,11 @@ public class FavoriteEntity implements Parcelable {
 
     public static final String TABLE_NAME = "favorite";
 
-    public static final String COLUMN_ID = "id";
+    static final String COLUMN_ID = "id";
 
-    public static final String COLUMN_USER_ID = "user_id";
+    static final String COLUMN_USER_ID = "user_id";
 
-    public static final String COLUMN_LOGIN = "login";
+    static final String COLUMN_LOGIN = "login";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID )
