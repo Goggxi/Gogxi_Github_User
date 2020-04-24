@@ -3,6 +3,7 @@
 Project Gogxi-Films adalah submission project untuk kelas [__Dicoding - Belajar Fundamental Aplikasi Android__](https://www.dicoding.com/academies/14).
 
 Repository ini berisi source code submission 3 (FINAL).
+Silahkan di clone, dan di jadikan sebagai Refrensi !!!
 
 - [x] MVVM Arsitektur
 - [x] Menggunakan Retrofit2 untuk parsing API
@@ -10,10 +11,6 @@ Repository ini berisi source code submission 3 (FINAL).
 - [x] Menggunakn Room Database untuk menyimpan data di local
 - [x] Menggunakn Content Provider untuk mengirim data ke aplikasi lain
 - [x] Daily reminder untuk kembali ke aplikasi yang berjalan pada pukul 09.00 AM
-
-## Link Aplikasi yang di Aprove
-[__Dicoding - Belajar Fundamental Aplikasi Android__](https://github.com/Goggxi/Gogxi_Github_User/tree/gogxi_github_user_provider).
-Silahkan di clone, dan di jadikan sebagai Refrensi !!!
 
 ## Tampilan Aplikasi
 <p align="center">
