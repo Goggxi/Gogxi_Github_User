@@ -1,6 +1,6 @@
 ## Deskripsi
 
-Project Gogxi-Films adalah submission project untuk kelas [__Dicoding - Belajar Fundamental Aplikasi Android__](https://www.dicoding.com/academies/14).
+Project Gogxi-Github User adalah submission project untuk kelas [__Dicoding - Belajar Fundamental Aplikasi Android__](https://www.dicoding.com/academies/14).
 
 Repository ini berisi source code submission 3 (FINAL).
 Silahkan di clone, dan di jadikan sebagai Refrensi !!!
