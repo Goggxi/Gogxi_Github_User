@@ -271,7 +271,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
         String location = mLocationProfile.getText().toString().trim();
 
         if (mIdUserProfile == null) {
-            Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.not_found , Toast.LENGTH_LONG).show();
         } else {
             mFavoriteEntity.setUser_id(id_user);
             mFavoriteEntity.setPublicRepos(repo);
@@ -291,7 +291,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
 
             mButtonDeleteFavorite.setVisibility(View.VISIBLE);
             mButtonAddFavorite.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.add_to_favorite , Toast.LENGTH_LONG).show();
         }
     }
 
@@ -303,7 +303,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
         mDetailVM.delete(mFavoriteEntity);
         setResult(RESULT_DELETE, intent);
 
-        Toast.makeText(getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.delete_to_favorite , Toast.LENGTH_LONG).show();
         mButtonDeleteFavorite.setVisibility(View.GONE);
         mButtonAddFavorite.setVisibility(View.VISIBLE);
     }
@@ -346,7 +346,7 @@ public class DetailActivity extends AppCompatActivity  implements View.OnClickLi
                         mDetailVM.deleteByLogin(login);
                         mButtonDeleteFavorite.setVisibility(View.VISIBLE);
                         mButtonAddFavorite.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.delete_to_favorite , Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton(getString(R.string.no), (dialog, id) -> dialog.cancel());

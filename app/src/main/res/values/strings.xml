@@ -8,14 +8,21 @@
     <string name="repositories">Repositories</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="language">Language</string>
+    <string name="language_setting">Adjust to your language</string>
+
     <string name="not_found">Not Found</string>
     <string name="add_to_favorite">Add to Favorite</string>
     <string name="delete_to_favorite">Delete From Favorite</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="message_delete">Are you sure you want to delete this item?</string>
+
     <string name="reminder_daily">Daily Reminder</string>
-    <string name="reminder_daily_message">Hey, there`s something new</string>
+    <string name="reminder_daily_message">Hi, its 9 oclock, its time to go back to the application.</string>
+    <string name="reminder_daily_status_active">Daily Reminder is Active</string>
+    <string name="reminder_daily_status_non_active">Daily Reminder is Non-Active</string>
+    <string name="reminder_daily_setting">Notification, return to the application at 9 am</string>
 
     <!--    No Translate-->
     <string name="image" translatable="false">image</string>

@@ -2,22 +2,31 @@ package com.gogxi.githubusers.data.source.local;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "favorite")
+@Entity(tableName = FavoriteEntity.TABLE_NAME)
 public class FavoriteEntity implements Parcelable {
 
+    public static final String TABLE_NAME = "favorite";
+
+    public static final String COLUMN_ID = "id";
+
+    public static final String COLUMN_USER_ID = "user_id";
+
+    public static final String COLUMN_LOGIN = "login";
+
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = COLUMN_ID )
     private int id;
 
-    @ColumnInfo(name = "user_id")
+    @ColumnInfo(name = COLUMN_USER_ID)
     private int user_id;
 
-    @ColumnInfo(name = "login")
+    @ColumnInfo(name = COLUMN_LOGIN)
     private String login;
 
     @ColumnInfo(name = "public_repos")

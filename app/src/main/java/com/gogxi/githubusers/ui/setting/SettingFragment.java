@@ -62,10 +62,10 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
             setPreferences();
             if (dailyIsChecked) {
                 mDailyReminderReceiver.dailyReminderOn(getActivity());
-                Toast.makeText(getActivity(), "Daily Reminder is Active", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.reminder_daily_status_active , Toast.LENGTH_LONG).show();
             } else {
                 mDailyReminderReceiver.dailyReminderOff(getActivity());
-                Toast.makeText(getActivity(), "Daily Reminder is Non Active", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.reminder_daily_status_non_active , Toast.LENGTH_LONG).show();
             }
         });
 
